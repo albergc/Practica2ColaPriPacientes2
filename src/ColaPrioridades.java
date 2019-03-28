@@ -16,37 +16,42 @@ public class ColaPrioridades {
     public void encolar(int prioridad, Paciente paciente) {
         NodoPrioridad aux = inicio;
         NodoPrioridad aux2 = null;
+        int i = inicio.getClave();
         if (inicio == null) {
             Cola cola = new Cola();
             cola.encolar(paciente);
             NodoPrioridad nuevo = new NodoPrioridad(prioridad, cola, null);
-            inicio=nuevo;
+            inicio = nuevo;
         } else {
-            while (aux!=null&&prioridad>=aux.getClave()) {
+            while (aux != null && prioridad >= aux.getClave()) {
                 if (prioridad == aux.getClave()) {
                     aux.getDato().encolar(paciente);
                     return;
                 }
-                if(aux.getSiguiente()==null){ aux2 = aux;}
-                else{aux = aux.getSiguiente();}
+                if (aux.getSiguiente() == null) {
+                    aux2 = aux;
+                    aux=null;
+                } else {
+                    aux = aux.getSiguiente();
+                }
             }
-            Cola cola= new Cola();
+            Cola cola = new Cola();
             cola.encolar(paciente);
 
-            if(aux==null){
+            if (aux == null) {
                 NodoPrioridad nuevo = new NodoPrioridad(prioridad, cola, null);
                 aux2.setSiguiente(nuevo);
-            }
-            else{
+            } else {
                 NodoPrioridad nuevo = new NodoPrioridad(prioridad, cola, aux.getSiguiente());
                 aux.setSiguiente(nuevo);
+
             }
 
         }
     }
 
     /**
-     * Busca la clave en la lista. Si la encuentra devuelve el alumno asociado a dicha clave,
+     * Busca la clave en la lista. Si 5485la encuentra devuelve el alumno asociado a dicha clave,
      * y si no la encuentra devuelve NULL.
      */
     public Paciente desencolar() {
@@ -59,9 +64,10 @@ public class ColaPrioridades {
      */
     public void verColaPrioridades() {
         NodoPrioridad aux = inicio;
-        while(aux!=null){
+        while (aux != null) {
+            System.out.println(aux.getClave());
             aux.getDato().verCola();
-            aux= aux.getSiguiente();
+            aux = aux.getSiguiente();
         }
 
 
